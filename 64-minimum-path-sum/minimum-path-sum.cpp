@@ -1,23 +1,27 @@
 class Solution {
 public:
-   int  f(vector<vector<int>> &dp,vector<vector<int> > & grid, int er, int ec , int sr , int sc){
-        if(er== sr && ec==sc) {
-            return grid[er][ec];
-        }
-        if(er<sr || ec< sc) {
-            return INT_MAX;
-        }
-        if(dp[sr][sc]!=-1)  return dp[sr][sc];
+    int minPathSum(vector<vector<int>>& nums) {
+        int m=nums.size();
+        int n=nums[0].size();
+        vector<vector<int>> dp(m,vector<int> (n,0));
+        for(int i=0; i<m; i++){
+            for(int j=0; j<n; j++){
+                if(i==0 && j== 0 ) dp[i][j]=nums[i][j];
+               else if(i==0 || j==0){
+                    if(i==0) {
+                        dp[i][j]=dp[i][j-1]+nums[i][j];
 
-        int rightWays=f(dp,grid,er,ec, sr, sc+1);
-        int downWays=f(dp,grid, er, ec,sr+1,sc);
-        return dp[sr][sc]= grid[sr][sc]+min(rightWays,downWays);
-     }
-    int minPathSum(vector<vector<int>>& grid) {
-        int m=grid.size();
-        int n=grid[0].size();
+                    }
+                    if(j==0){
+                        dp[i][j]=dp[i-1][j]+nums[i][j];
+                    }
 
-        vector<vector<int> > dp(m, vector<int> (n,-1));
-        return f(dp,grid, m-1 ,n-1, 0, 0);
+                }
+                else {
+                    dp[i][j]=min(dp[i-1][j],dp[i][j-1]) +nums[i][j];
+                }
+            }
+        }
+        return dp[m-1][n-1];
     }
 };
