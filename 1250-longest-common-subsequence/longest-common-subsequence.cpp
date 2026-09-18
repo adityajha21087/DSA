@@ -14,6 +14,15 @@ public:
                 }
             }
         }
+     string ans="";
+     int i=m;
+     int j=n;
+    while(i>0 && j>0){
+        if(a[i-1]==b[j-1]) ans+=(a[i-1]);
+       if(dp[i-1][j]>dp[i][j-1]) i--;
+       else j--;
+    } 
+    cout<<ans;
         return dp[m][n];
     }
 };
