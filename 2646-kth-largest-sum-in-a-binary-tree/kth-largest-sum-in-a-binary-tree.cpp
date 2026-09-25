@@ -14,7 +14,7 @@ public:
     long long kthLargestLevelSum(TreeNode* root, int k) {
         queue<TreeNode*> q;
         q.push(root);
-        vector<long long> ans(1);
+        vector<long long> ans;
         int level=0;
         while(q.size()>0){
          int s=q.size();
@@ -26,12 +26,13 @@ public:
             if(temp->left!=NULL) q.push(temp->left);
             if(temp->right!=NULL) q.push(temp->right);
          }
-         level++;
+       
          ans.push_back(sum);
         }
         int n=ans.size();
+        cout<<n<<" "<<level;
         sort(ans.begin(),ans.end());
-        if(k>level) return -1;
+        if(k>n) return -1;
         return ans[n-k];
     }
 };
